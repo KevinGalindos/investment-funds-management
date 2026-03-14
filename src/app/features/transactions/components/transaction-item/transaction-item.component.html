@@ -1,0 +1,73 @@
+<div
+  class="flex items-center gap-4 py-4 px-4 sm:px-5 hover:bg-slate-800/30 transition-colors
+      rounded-xl group"
+>
+  <div
+    class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+    [class]="
+          transaction().type === 'subscribe'
+            ? 'bg-emerald-500/15 border border-emerald-500/20'
+            : 'bg-red-500/15 border border-red-500/20'
+        "
+  >
+    @if (transaction().type === 'subscribe') {
+    <svg
+      class="w-5 h-5 text-emerald-400"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M7 11l5-5m0 0l5 5m-5-5v12"
+      />
+    </svg>
+    } @else {
+    <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M17 13l-5 5m0 0l-5-5m5 5V6"
+      />
+    </svg>
+    }
+  </div>
+
+  <div class="flex-1 min-w-0">
+    <div class="flex items-center gap-2">
+      <h4 class="text-sm font-medium text-white truncate">{{ transaction().fundName }}</h4>
+      <span
+        class="hidden sm:inline-flex text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-md"
+        [class]="
+              transaction().type === 'subscribe'
+                ? 'bg-emerald-500/10 text-emerald-400'
+                : 'bg-red-500/10 text-red-400'
+            "
+      >
+        {{ transaction().type === 'subscribe' ? 'Suscripción' : 'Cancelación' }}
+      </span>
+    </div>
+    <div class="flex items-center gap-3 mt-1">
+      <span class="text-xs text-slate-500">
+        {{ transaction().date | date: 'dd/MM/yyyy HH:mm' }}
+      </span>
+      <span class="text-xs text-slate-600">•</span>
+      <span class="text-xs text-slate-500 flex items-center gap-1">
+        {{ transaction().notificationMethod === 'email' ? '📧' : '📱' }}
+        {{ transaction().notificationMethod === 'email' ? 'Email' : 'SMS' }}
+      </span>
+    </div>
+  </div>
+
+  <div class="text-right shrink-0">
+    <p
+      class="text-sm font-bold"
+      [class]="transaction().type === 'subscribe' ? 'text-red-400' : 'text-emerald-400'"
+    >
+      {{ transaction().type === 'subscribe' ? '-' : '+' }}{{ transaction().amount | copCurrency: false }}
+    </p>
+  </div>
+</div>

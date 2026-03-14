@@ -1,0 +1,29 @@
+<div>
+  <h1 class="text-3xl lg:text-4xl font-bold text-white tracking-tight">Mi Portafolio</h1>
+  <p class="text-slate-400 text-sm mt-2 mb-3!">Administra tus fondos de inversión activos</p>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-4">
+  <div
+    class="stat-card bg-linear-to-br from-emerald-600/20 to-emerald-800/10 border border-emerald-500/20 rounded-xl transition-all duration-300 hover:border-emerald-500/35 hover:scale-[1.02] hover:shadow-lg hover:shadow-emerald-500/5 cursor-default"
+  >
+    <p class="text-xs text-emerald-300/70 font-medium mb-1">Saldo disponible</p>
+    <p class="text-2xl font-bold text-white">
+      {{ userService.balance() | copCurrency: false }}
+    </p>
+  </div>
+  <div
+    class="stat-card bg-linear-to-br from-indigo-600/20 to-indigo-800/10 border border-indigo-500/20 rounded-xl transition-all duration-300 hover:border-indigo-500/35 hover:scale-[1.02] hover:shadow-lg hover:shadow-indigo-500/5 cursor-default"
+  >
+    <p class="text-xs text-indigo-300/70 font-medium mb-1">Total invertido</p>
+    <p class="text-2xl font-bold text-white">
+      {{ userService.totalInvested() | copCurrency: false }}
+    </p>
+  </div>
+  <div
+    class="stat-card bg-linear-to-br from-violet-600/20 to-violet-800/10 border border-violet-500/20 rounded-xl transition-all duration-300 hover:border-violet-500/35 hover:scale-[1.02] hover:shadow-lg hover:shadow-violet-500/5 cursor-default"
+  >
+    <p class="text-xs text-violet-300/70 font-medium mb-1">Fondos activos</p>
+    <p class="text-2xl font-bold text-white">{{ userService.subscribedCount() }}</p>
+  </div>
+</div>

@@ -1,0 +1,291 @@
+{
+  "funds": [
+    {
+      "id": 1,
+      "name": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "minimumAmount": 75000,
+      "category": "FPV"
+    },
+    {
+      "id": 2,
+      "name": "FPV_BTG_PACTUAL_ECOPETROL",
+      "minimumAmount": 125000,
+      "category": "FPV"
+    },
+    {
+      "id": 3,
+      "name": "DEUDAPRIVADA",
+      "minimumAmount": 50000,
+      "category": "FIC"
+    },
+    {
+      "id": 4,
+      "name": "FDO-ACCIONES",
+      "minimumAmount": 250000,
+      "category": "FIC"
+    },
+    {
+      "id": 5,
+      "name": "FPV_BTG_PACTUAL_DINAMICA",
+      "minimumAmount": 100000,
+      "category": "FPV"
+    }
+  ],
+  "user": {
+    "id": 1,
+    "name": "Usuario",
+    "email": "usuario@btg.com",
+    "phone": "+57 300 123 4567",
+    "balance": 125000,
+    "subscribedFunds": [
+      {
+        "fundId": 3,
+        "fundName": "DEUDAPRIVADA",
+        "amount": 50000,
+        "notificationMethod": "sms",
+        "subscribedAt": "2026-03-14T16:54:54.487Z"
+      },
+      {
+        "fundId": 1,
+        "fundName": "FPV_BTG_PACTUAL_RECAUDADORA",
+        "amount": 75000,
+        "notificationMethod": "sms",
+        "subscribedAt": "2026-03-14T20:20:03.524Z"
+      },
+      {
+        "fundId": 2,
+        "fundName": "FPV_BTG_PACTUAL_ECOPETROL",
+        "amount": 250000,
+        "notificationMethod": "email",
+        "subscribedAt": "2026-03-14T22:52:41.120Z"
+      }
+    ]
+  },
+  "transactions": [
+    {
+      "id": "c2d46b81-4c47-4b3a-9bce-d0519ef5851f",
+      "fundId": 1,
+      "fundName": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "type": "subscribe",
+      "amount": 75000,
+      "date": "2026-03-14T03:41:35.662Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "e64849dd-740f-4293-bc3e-d8bf24d5dd0d",
+      "fundId": 1,
+      "fundName": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "type": "cancel",
+      "amount": 75000,
+      "date": "2026-03-14T03:42:21.045Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "7cf291e7-94d5-4d15-996c-80d1f19b7b33",
+      "fundId": 3,
+      "fundName": "DEUDAPRIVADA",
+      "type": "subscribe",
+      "amount": 50000,
+      "date": "2026-03-14T05:15:24.667Z",
+      "notificationMethod": "sms"
+    },
+    {
+      "id": "30f481cb-4de9-462c-bb0c-10890a69de00",
+      "fundId": 3,
+      "fundName": "DEUDAPRIVADA",
+      "type": "cancel",
+      "amount": 50000,
+      "date": "2026-03-14T05:20:39.538Z",
+      "notificationMethod": "sms"
+    },
+    {
+      "id": "a52eabc2-3590-4a3b-abfb-f1cb1d4e1e06",
+      "fundId": 1,
+      "fundName": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "type": "subscribe",
+      "amount": 75000,
+      "date": "2026-03-14T05:37:08.800Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "dfb30ae6-aee7-435e-a9a4-8cbdab81d263",
+      "fundId": 2,
+      "fundName": "FPV_BTG_PACTUAL_ECOPETROL",
+      "type": "subscribe",
+      "amount": 125000,
+      "date": "2026-03-14T05:59:59.144Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "cdfa078d-8124-4c9d-bd91-bf3dd62235a8",
+      "fundId": 1,
+      "fundName": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "type": "cancel",
+      "amount": 75000,
+      "date": "2026-03-14T06:10:20.119Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "b494dc71-b098-4e63-9778-68c7bdb39af5",
+      "fundId": 4,
+      "fundName": "FDO-ACCIONES",
+      "type": "subscribe",
+      "amount": 250000,
+      "date": "2026-03-14T06:28:47.948Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "4e600e80-2238-488f-bc39-870969be21e3",
+      "fundId": 5,
+      "fundName": "FPV_BTG_PACTUAL_DINAMICA",
+      "type": "subscribe",
+      "amount": 100000,
+      "date": "2026-03-14T06:28:56.589Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "89999c6f-9748-42ac-a86a-a1a76fe793a5",
+      "fundId": 4,
+      "fundName": "FDO-ACCIONES",
+      "type": "cancel",
+      "amount": 250000,
+      "date": "2026-03-14T06:29:59.904Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "bdfd2fda-e49a-4a14-8202-69f51121a294",
+      "fundId": 2,
+      "fundName": "FPV_BTG_PACTUAL_ECOPETROL",
+      "type": "cancel",
+      "amount": 125000,
+      "date": "2026-03-14T06:40:04.847Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "7c6c3033-088e-4507-9c26-44b29620e18e",
+      "fundId": 2,
+      "fundName": "FPV_BTG_PACTUAL_ECOPETROL",
+      "type": "subscribe",
+      "amount": 125000,
+      "date": "2026-03-14T14:59:38.767Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "19495c99-ae3d-4e7f-baa5-e12184fbb39e",
+      "fundId": 1,
+      "fundName": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "type": "subscribe",
+      "amount": 75000,
+      "date": "2026-03-14T15:10:34.108Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "8cd660ff-1a57-4628-a303-7bf8d6f8806d",
+      "fundId": 1,
+      "fundName": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "type": "cancel",
+      "amount": 75000,
+      "date": "2026-03-14T15:18:14.557Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "c618b1cb-5721-4234-b0fd-8b3cc11374d4",
+      "fundId": 4,
+      "fundName": "FDO-ACCIONES",
+      "type": "subscribe",
+      "amount": 250000,
+      "date": "2026-03-14T15:18:25.093Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "3d8a47cb-982a-442e-97b7-92c250770a51",
+      "fundId": 4,
+      "fundName": "FDO-ACCIONES",
+      "type": "cancel",
+      "amount": 250000,
+      "date": "2026-03-14T16:54:48.911Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "301083fc-64ed-4126-a5cf-29a1260c600d",
+      "fundId": 3,
+      "fundName": "DEUDAPRIVADA",
+      "type": "subscribe",
+      "amount": 50000,
+      "date": "2026-03-14T16:54:54.509Z",
+      "notificationMethod": "sms"
+    },
+    {
+      "id": "dd68192a-bfd5-4d6c-bca8-496c5eeaa356",
+      "fundId": 2,
+      "fundName": "FPV_BTG_PACTUAL_ECOPETROL",
+      "type": "cancel",
+      "amount": 125000,
+      "date": "2026-03-14T20:13:31.596Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "2f0d4d99-55b4-4d1c-99e9-02c9affc1e00",
+      "fundId": 4,
+      "fundName": "FDO-ACCIONES",
+      "type": "subscribe",
+      "amount": 350000,
+      "date": "2026-03-14T20:13:55.615Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "a405ed19-ebbd-4549-9425-87cc6dcf92f3",
+      "fundId": 4,
+      "fundName": "FDO-ACCIONES",
+      "type": "cancel",
+      "amount": 350000,
+      "date": "2026-03-14T20:19:42.623Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "0e05237d-ed37-4319-b261-2bc52b941264",
+      "fundId": 1,
+      "fundName": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "type": "subscribe",
+      "amount": 75000,
+      "date": "2026-03-14T20:20:04.123Z",
+      "notificationMethod": "sms"
+    },
+    {
+      "id": "10d2cc94-aaa5-414b-865d-b2c0e4a6ec9b",
+      "fundId": 2,
+      "fundName": "FPV_BTG_PACTUAL_ECOPETROL",
+      "type": "subscribe",
+      "amount": 125000,
+      "date": "2026-03-14T20:23:12.366Z",
+      "notificationMethod": "sms"
+    },
+    {
+      "id": "e1610245-ed9e-401f-a8b8-d53977f1541d",
+      "fundId": 5,
+      "fundName": "FPV_BTG_PACTUAL_DINAMICA",
+      "type": "cancel",
+      "amount": 100000,
+      "date": "2026-03-14T20:50:57.415Z",
+      "notificationMethod": "email"
+    },
+    {
+      "id": "a58afa99-a6c6-4ed5-a394-06433e01ea76",
+      "fundId": 2,
+      "fundName": "FPV_BTG_PACTUAL_ECOPETROL",
+      "type": "cancel",
+      "amount": 125000,
+      "date": "2026-03-14T22:52:22.201Z",
+      "notificationMethod": "sms"
+    },
+    {
+      "id": "2affaf81-bed1-404b-adbc-d9b5e7b285b2",
+      "fundId": 2,
+      "fundName": "FPV_BTG_PACTUAL_ECOPETROL",
+      "type": "subscribe",
+      "amount": 250000,
+      "date": "2026-03-14T22:52:41.136Z",
+      "notificationMethod": "email"
+    }
+  ]
+}

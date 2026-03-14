@@ -1,0 +1,144 @@
+<div class="min-h-screen bg-slate-950 text-white flex">
+  @if (sidebarOpen()) {
+    <div
+      class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
+      (click)="toggleSidebar()"
+    ></div>
+  }
+
+  <aside
+    class="fixed lg:static inset-y-0 left-0 z-50 w-72 bg-slate-900/80 border-r border-slate-800/50 flex flex-col transition-transform duration-300 ease-out backdrop-blur-xl"
+    [ngClass]="sidebarOpen() ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+  >
+    <div class="dashboard-sidebar-header border-b border-slate-800/50">
+      <div class="flex items-center gap-3">
+        <div
+          class="w-10 h-10 rounded-xl bg-linear-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20"
+        >
+          <span class="text-lg font-black">B</span>
+        </div>
+        <div>
+          <h1
+            class="text-lg font-bold bg-linear-to-r from-white to-slate-400 bg-clip-text text-transparent"
+          >
+            Mis Inversiones
+          </h1>
+          <p class="text-[11px] text-slate-500 font-medium tracking-wider uppercase">
+            Fondos de inversión
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-sidebar-user">
+      <div
+        class="user-info-card bg-linear-to-br from-indigo-600/20 to-violet-600/10 border border-indigo-500/20 rounded-xl transition-all duration-300 hover:border-indigo-500/40 hover:from-indigo-600/25"
+      >
+        <p class="text-xs text-indigo-300/70 font-medium mb-1">Saldo disponible</p>
+        <p class="text-2xl font-bold text-white tracking-tight">
+          {{ userService.balance() | copCurrency: false }}
+        </p>
+        <div class="mt-2 flex items-center gap-2">
+          <div class="w-6 h-6 rounded-full bg-indigo-500/30 flex items-center justify-center">
+            <span class="text-xs">👤</span>
+          </div>
+          <span class="text-xs text-slate-400">{{ userService.userName() }}</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="flex-1 dashboard-sidebar-nav flex flex-col gap-[10px]">
+      <p class="text-[10px] text-slate-600 font-bold tracking-[0.2em] uppercase mb-4 px-4">
+        Menú principal
+      </p>
+      @for (item of navItems; track item.route) {
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="bg-indigo-500/15 text-indigo-300 border-indigo-500/30 shadow-sm shadow-indigo-500/5"
+          [routerLinkActiveOptions]="{ exact: item.route === '/funds' }"
+          class="nav-link dashboard-nav-link flex items-center gap-4 rounded-xl text-sm text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all duration-200 border border-transparent group"
+          (click)="closeSidebarOnMobile()"
+        >
+          <span class="text-lg transition-transform duration-200 group-hover:scale-110">{{
+            item.icon
+          }}</span>
+          <span class="font-medium">{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+  </aside>
+
+  <div class="flex-1 flex flex-col min-h-screen lg:min-w-0">
+    <header class="sticky top-0 z-30 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/50">
+      <div class="flex items-center justify-between px-4 lg:px-8 h-16">
+        <button
+          (click)="toggleSidebar()"
+          class="lg:hidden p-2 rounded-lg hover:bg-slate-800 transition-colors"
+          aria-label="Abrir menú"
+        >
+          <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+
+        <div class="max-lg:hidden lg:flex items-center gap-2 text-sm">
+          <span class="text-slate-600">Dashboard</span>
+          <span class="text-slate-700">/</span>
+          <span class="text-slate-300 font-medium">Gestión de Fondos</span>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="max-sm:hidden sm:flex items-center gap-3">
+            <div
+              class="header-stat-pill flex items-center justify-center gap-2 rounded-xl bg-slate-800/30 border border-slate-700/50 hover:bg-slate-800/50 transition-colors"
+            >
+              <span
+                class="text-[10px] text-slate-500 font-medium uppercase tracking-wider leading-none"
+                >Invertido:</span
+              >
+              <span class="text-sm font-bold text-indigo-400 leading-none">{{
+                userService.totalInvested() | copCurrency: false
+              }}</span>
+            </div>
+            <div
+              class="header-stat-pill flex items-center justify-center gap-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/15 transition-colors"
+            >
+              <span
+                class="text-[10px] text-emerald-500/80 font-medium uppercase tracking-wider leading-none"
+                >Suscritos:</span
+              >
+              <span class="text-sm font-bold text-emerald-400 leading-none">{{
+                userService.subscribedCount()
+              }}</span>
+            </div>
+            <div class="w-px h-6 bg-slate-800/80 mx-1"></div>
+          </div>
+
+          <div class="flex items-center gap-2 group cursor-pointer">
+            <span
+              class="text-sm font-medium text-slate-300 overflow-hidden whitespace-nowrap transition-all duration-300 ease-out max-w-0 opacity-0 group-hover:max-w-xs group-hover:opacity-100 group-hover:mr-1"
+            >
+              {{ userService.userName() }}
+            </span>
+            <div
+              class="w-8 h-8 rounded-full bg-linear-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-xs font-bold shadow-lg shadow-indigo-500/20 transition-transform duration-300 group-hover:scale-105"
+            >
+              {{ userService.userName().charAt(0) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1 p-6 lg:p-10 xl:p-12 overflow-y-auto bg-slate-950 w-full">
+      <router-outlet />
+    </main>
+  </div>
+
+  <app-toast />
+</div>

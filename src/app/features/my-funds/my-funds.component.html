@@ -1,0 +1,43 @@
+<div class="w-full my-funds-wrapper flex flex-col gap-4">
+  <app-my-funds-summary />
+
+  @if (userService.loading() || fundService.loading()) {
+    <div
+      class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-xs animate-fade-in"
+    >
+      <app-loading-spinner containerClass="p-0" />
+    </div>
+  }
+
+  @defer (on idle) {
+    <app-my-funds-list (cancelFund)="confirmCancel($event)" />
+  } @placeholder {
+    <div class="flex flex-col gap-4 animate-pulse">
+      @for (i of [1, 2, 3]; track i) {
+        <div
+          class="h-24 bg-slate-900/40 rounded-2xl border border-white/5 p-4 flex items-center gap-4"
+        >
+          <div class="w-10 h-10 rounded-xl bg-white/5"></div>
+          <div class="flex-1 space-y-2">
+            <div class="h-4 w-1/4 rounded bg-white/5"></div>
+            <div class="h-3 w-1/6 rounded bg-white/5"></div>
+          </div>
+          <div class="w-24 h-8 rounded-xl bg-white/5"></div>
+        </div>
+      }
+    </div>
+  }
+
+  <app-action-dialog
+    dialogType="confirm"
+    [visible]="showCancelDialog()"
+    title="¿Cancelar suscripción?"
+    [message]="cancelDialogMessage()"
+    icon="🗑️"
+    confirmText="Sí, cancelar"
+    cancelText="No, mantener"
+    type="danger"
+    (confirmed)="onCancelConfirmed()"
+    (closed)="closeCancelDialog()"
+  />
+</div>

@@ -1,0 +1,33 @@
+@if (fundService.loading()) {
+  <app-loading-spinner />
+}
+
+@if (fundService.error()) {
+  <div class="bg-red-500/10 border border-red-500/20 rounded-xl p-6 text-center">
+    <span class="text-2xl">⚠️</span>
+    <p class="text-red-300 mt-2">{{ fundService.error() }}</p>
+    <button
+      (click)="loadFunds()"
+      class="mt-3 px-4 py-2 rounded-lg bg-red-500/20 text-red-300 text-sm hover:bg-red-500/30 transition-colors"
+    >
+      Reintentar
+    </button>
+  </div>
+}
+
+@if (!fundService.loading() && !fundService.error()) {
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+    @for (fund of fundService.funds(); track fund.id) {
+      <app-fund-card
+        [fund]="fund"
+        [isSubscribed]="userService.isSubscribedTo(fund.id)"
+        (subscribe)="subscribeFund.emit($event)"
+      />
+    } @empty {
+      <div class="col-span-full text-center py-12">
+        <span class="text-4xl">📭</span>
+        <p class="text-slate-400 mt-3">No hay fondos disponibles en este momento.</p>
+      </div>
+    }
+  </div>
+}

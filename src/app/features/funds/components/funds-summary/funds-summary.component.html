@@ -1,0 +1,58 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+  <div
+    class="stat-card bg-linear-to-br from-indigo-600/20 to-indigo-800/10 border border-indigo-500/20 rounded-xl transition-all duration-300 hover:border-indigo-500/35 hover:scale-[1.02] hover:shadow-lg hover:shadow-indigo-500/5 cursor-default"
+  >
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-lg bg-indigo-500/20 flex items-center justify-center">
+        <span class="text-lg">📊</span>
+      </div>
+      <div>
+        <p class="text-xs text-indigo-300/70">Total fondos</p>
+        <p class="text-xl font-bold text-white">{{ fundService.funds().length }}</p>
+      </div>
+    </div>
+  </div>
+  <div
+    class="stat-card bg-linear-to-br from-violet-600/20 to-violet-800/10 border border-violet-500/20 rounded-xl transition-all duration-300 hover:border-violet-500/35 hover:scale-[1.02] hover:shadow-lg hover:shadow-violet-500/5 cursor-default"
+  >
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-lg bg-violet-500/20 flex items-center justify-center">
+        <span class="text-lg">🏷️</span>
+      </div>
+      <div>
+        <p class="text-xs text-violet-300/70">Fondos FPV</p>
+        <p class="text-xl font-bold text-white">
+          {{ fundService.funds().filter(f => f.category === 'FPV').length }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    class="stat-card bg-linear-to-br from-sky-600/20 to-sky-800/10 border border-sky-500/20 rounded-xl transition-all duration-300 hover:border-sky-500/35 hover:scale-[1.02] hover:shadow-lg hover:shadow-sky-500/5 cursor-default"
+  >
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-lg bg-sky-500/20 flex items-center justify-center">
+        <span class="text-lg">📁</span>
+      </div>
+      <div>
+        <p class="text-xs text-sky-300/70">Fondos FIC</p>
+        <p class="text-xl font-bold text-white">
+          {{ fundService.funds().filter(f => f.category === 'FIC').length }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    class="stat-card bg-linear-to-br from-emerald-600/20 to-emerald-800/10 border border-emerald-500/20 rounded-xl transition-all duration-300 hover:border-emerald-500/35 hover:scale-[1.02] hover:shadow-lg hover:shadow-emerald-500/5 cursor-default"
+  >
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+        <span class="text-lg">✅</span>
+      </div>
+      <div>
+        <p class="text-xs text-emerald-300/70">Suscritos</p>
+        <p class="text-xl font-bold text-white">{{ userService.subscribedCount() }}</p>
+      </div>
+    </div>
+  </div>
+</div>

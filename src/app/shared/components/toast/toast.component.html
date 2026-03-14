@@ -1,0 +1,19 @@
+<div class="fixed top-4 right-4 z-9999 flex flex-col gap-3 max-w-sm w-full pointer-events-none">
+  @for (toast of toastService.toasts(); track toast.id) {
+    <div
+      class="pointer-events-auto rounded-xl toast-body shadow-2xl border backdrop-blur-xl animate-slide-in flex items-start gap-3 transition-all duration-300"
+      [class]="getToastClasses(toast.type)"
+      role="alert"
+    >
+      <span class="text-xl shrink-0 mt-0.5">{{ getIcon(toast.type) }}</span>
+      <p class="text-sm font-medium flex-1 leading-relaxed">{{ toast.message }}</p>
+      <button
+        (click)="toastService.dismiss(toast.id)"
+        class="shrink-0 opacity-60 hover:opacity-100 transition-opacity text-lg leading-none mt-0.5"
+        aria-label="Cerrar notificación"
+      >
+        ×
+      </button>
+    </div>
+  }
+</div>

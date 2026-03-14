@@ -1,0 +1,9 @@
+.fund-card {
+  padding: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .fund-card {
+    padding: 2rem;
+  }
+}

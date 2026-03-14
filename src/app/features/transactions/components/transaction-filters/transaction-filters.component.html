@@ -1,0 +1,15 @@
+<div class="flex items-center gap-3">
+  @for (filter of filters; track filter.value) {
+    <button
+      (click)="filterChange.emit(filter.value)"
+      class="filter-btn rounded-xl text-sm font-medium transition-all duration-200 border active:scale-[0.97]"
+      [class]="
+        activeFilter() === filter.value
+          ? 'bg-indigo-500/15 border-indigo-500/30 text-indigo-300 shadow-sm shadow-indigo-500/10'
+          : 'bg-slate-800/30 border-slate-700/50 text-slate-400 hover:text-white hover:border-slate-600'
+      "
+    >
+      {{ filter.label }}
+    </button>
+  }
+</div>

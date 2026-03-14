@@ -1,0 +1,54 @@
+:host {
+  display: block;
+  padding: 20px;
+}
+
+.stat-card {
+  padding: 1.5rem;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+}
+
+.table-th {
+  padding: 0.875rem 1.25rem;
+}
+
+.table-td {
+  padding: 1rem 1.25rem;
+}
+
+.empty-state {
+  padding: 4rem 0;
+}
+
+.table-wrapper {
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .table-wrapper {
+    padding: 1.5rem;
+  }
+}
+
+.transaction-card {
+  padding: 1.25rem !important;
+  background-color: color-mix(in srgb, var(--color-slate-800) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-slate-800) 40%, transparent);
+  border-radius: 1rem;
+}
+
+.transaction-card:hover {
+  background-color: color-mix(in srgb, var(--color-slate-800) 30%, transparent);
+  border-color: color-mix(in srgb, var(--color-slate-700) 50%, transparent);
+}
+
+.transaction-badge {
+  padding: 0.25rem 0.625rem !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}

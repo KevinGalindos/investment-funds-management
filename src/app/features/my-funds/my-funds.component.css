@@ -1,0 +1,34 @@
+.my-funds-wrapper {
+  padding: 20px;
+}
+
+.stat-card {
+  padding: 1.5rem;
+}
+
+.fund-row {
+  padding: 1.25rem;
+}
+
+.cancel-btn {
+  padding: 0.5rem 1rem;
+}
+
+.empty-state {
+  padding: 4rem 0;
+}
+
+.explore-btn {
+  padding: 0.625rem 1.25rem;
+}
+
+.fund-row-divider {
+  margin-top: 10px;
+  padding-top: 8px;
+}
+
+@media (min-width: 640px) {
+  .fund-row-divider {
+    margin-top: 0.5rem;
+  }
+}

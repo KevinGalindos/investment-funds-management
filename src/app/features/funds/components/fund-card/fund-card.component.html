@@ -1,0 +1,53 @@
+<div
+  class="fund-card group relative bg-slate-900/50 border border-slate-800/50 rounded-2xl hover:border-indigo-500/30 hover:bg-slate-900/80 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/5 hover:-translate-y-1"
+>
+  <div
+    class="absolute inset-0 rounded-2xl bg-linear-to-br from-indigo-500/5 to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+  ></div>
+
+  <div class="relative flex flex-col gap-4">
+    <div class="flex items-center justify-between">
+      <app-category-badge [category]="fund().category" />
+      <span class="text-xs text-slate-600 font-mono">#{{ fund().id }}</span>
+    </div>
+
+    <h3
+      class="text-base font-semibold text-white tracking-tight group-hover:text-indigo-200 transition-colors duration-200 truncate block"
+      [title]="fund().name"
+    >
+      {{ fund().name }}
+    </h3>
+
+    <div>
+      <p class="text-xs text-slate-500 mb-0.5">Monto mínimo de inversión</p>
+      <p
+        class="text-xl font-bold text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400"
+      >
+        {{ fund().minimumAmount | copCurrency }}
+      </p>
+    </div>
+
+    @if (isSubscribed()) {
+      <div
+        class="flex items-center gap-2 px-4 py-2.5 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-base font-medium justify-center"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 13l4 4L19 7"
+          />
+        </svg>
+        Suscrito
+      </div>
+    } @else {
+      <button
+        (click)="subscribe.emit(fund())"
+        class="w-full px-4 py-2.5 rounded-xl h-10 bg-indigo-500/80 hover:bg-indigo-500 text-white text-base font-semibold transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/25 active:scale-[0.97] border border-indigo-500/50"
+      >
+        Suscribirse
+      </button>
+    }
+  </div>
+</div>

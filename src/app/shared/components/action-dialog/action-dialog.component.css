@@ -1,0 +1,196 @@
+:host {
+  display: contents;
+}
+
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: center;
+  padding: 0;
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .dialog-overlay {
+    align-items: center !important;
+    padding: 1.5rem !important;
+  }
+}
+
+.dialog-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  background-color: rgba(2, 6, 23, 0.3) !important;
+  z-index: -1 !important;
+  pointer-events: auto !important;
+}
+
+.dialog-container {
+  pointer-events: auto !important;
+}
+
+.dialog-header {
+  padding: 1.25rem 3.5rem 1.25rem 1.5rem;
+}
+
+.dialog-body {
+  padding: 1.25rem 1.5rem;
+}
+
+.dialog-footer {
+  padding: 1.25rem 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+@media (min-width: 640px) {
+  .dialog-body {
+    padding: 1.5rem 2rem;
+  }
+
+  .dialog-footer {
+    padding: 1.25rem 2rem 2.25rem;
+    flex-direction: row;
+    gap: 1.25rem;
+  }
+}
+
+.dialog-btn {
+  height: 52px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 1.25rem !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  padding: 0 1.5rem !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  width: 100% !important;
+  border: 1px solid transparent;
+}
+
+.dialog-btn:active {
+  transform: scale(0.98);
+}
+
+@media (min-width: 640px) {
+  .dialog-btn {
+    font-size: 16px !important;
+  }
+}
+
+.dialog-btn-secondary {
+  background-color: rgba(30, 41, 59, 0.8) !important;
+  border-color: rgba(71, 85, 105, 0.4) !important;
+  color: #94a3b8 !important;
+}
+
+.dialog-btn-secondary:hover {
+  background-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+.dialog-btn-primary {
+  background-color: #4f46e5 !important;
+  border-color: rgba(99, 102, 241, 0.4) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.2);
+}
+
+.dialog-btn-primary:hover:not(:disabled) {
+  background-color: #6366f1 !important;
+}
+
+.dialog-btn-primary:disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
+}
+
+.dialog-btn-danger {
+  background: linear-gradient(to right, #dc2626, #e11d48) !important;
+  border-color: rgba(244, 63, 94, 0.4) !important;
+  color: #ffffff !important;
+}
+
+.dialog-btn-danger:hover {
+  background: linear-gradient(to right, #ef4444, #f43f5e) !important;
+}
+
+.dialog-card {
+  padding: 0.875rem 1rem;
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(51, 65, 85, 0.3);
+  border-radius: 1rem;
+}
+
+.dialog-method-btn {
+  padding: 0.875rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 1rem;
+  border: 1px solid #334155;
+  background: rgba(30, 41, 59, 0.5);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.dialog-method-btn.active {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.dialog-divider {
+  padding-top: 12px;
+  padding-bottom: 10px;
+}
+.dialog-divider-inner {
+  padding-top: 14px;
+  margin-top: 4px;
+  border-top: 1px solid rgba(30, 41, 59, 0.8);
+}
+
+.dialog-label {
+  display: block !important;
+  margin-bottom: 8px !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  color: #64748b !important;
+  margin-left: 4px !important;
+}
+
+.alert-insufficient {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 1rem !important;
+  padding: 12px !important;
+  background: rgba(239, 68, 68, 0.05) !important;
+  border: 1px solid rgba(239, 68, 68, 0.2) !important;
+  border-radius: 1.25rem !important;
+}
+
+.investment-input {
+  height: 50px !important;
+  padding-left: 2.5rem !important;
+  padding-right: 1.25rem !important;
+}
+
+.investment-currency-icon {
+  position: absolute !important;
+  left: 1.25rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+}
+
+.investment-input:focus {
+  background-color: color-mix(in srgb, var(--color-slate-800) 80%, white 5%) !important;
+  border-color: var(--color-indigo-500) !important;
+}

@@ -1,0 +1,279 @@
+@if (visible()) {
+  <div
+    class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6"
+    [class.hidden]="!visible()"
+    role="dialog"
+    aria-modal="true"
+  >
+    <!-- Backdrop con blur optimizado (GPU accelerated) -->
+    <div
+      class="absolute inset-0 bg-slate-950/40 backdrop-blur-md animate-fade-in"
+      (click)="onBackdropClick()"
+      [class.animate-fade-out]="isClosing()"
+    ></div>
+
+    <!-- Contenedor del Diálogo -->
+    <div
+      class="dialog-container relative bg-slate-900 border-t sm:border border-slate-700/50 rounded-t-[2.5rem] sm:rounded-3xl shadow-2xl w-full sm:max-w-xl mx-auto flex flex-col transition-all duration-300 max-h-[70vh] sm:max-h-[85vh] overflow-y-auto overflow-x-hidden"
+      [class]="maxWidth()"
+      [class.animate-dialog-exit]="isClosing()"
+      [class.animate-dialog-enter]="!isClosing() && !isEntered()"
+      (click)="onBodyClick($event)"
+    >
+      @if (dialogType() === 'subscribe') {
+        <div
+          class="dialog-header relative shrink-0 bg-linear-to-r from-indigo-600 to-violet-700 rounded-t-[2.5rem] sm:rounded-none sm:rounded-t-3xl shadow-lg"
+        >
+          <button
+            (click)="onCancelAction()"
+            class="absolute top-8 right-6 p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-2xl transition-all duration-300 active:scale-90"
+            aria-label="Cerrar modal"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          <div class="flex items-center gap-5 mt-2">
+            <div
+              class="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 shrink-0"
+            >
+              <span class="text-2xl">💼</span>
+            </div>
+            @if (fund(); as currentFund) {
+              <div class="flex-1 min-w-0">
+                <h2
+                  class="text-xl sm:text-2xl font-bold text-white tracking-tight leading-tight mb-1 truncate"
+                >
+                  Suscribirse a Fondo
+                </h2>
+                <p class="text-indigo-100/70 text-sm font-medium truncate">
+                  {{ currentFund.name }}
+                </p>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="dialog-body flex-1 overflow-y-auto">
+          @if (fund(); as currentFund) {
+            <div class="flex flex-col gap-5">
+              <div class="grid grid-cols-2 gap-3">
+                <div class="dialog-card">
+                  <p class="dialog-label ml-0!">Categoría</p>
+                  <p class="text-base font-bold text-slate-200">{{ currentFund.category }}</p>
+                </div>
+                <div class="dialog-card">
+                  <p class="dialog-label ml-0!">Monto Mínimo</p>
+                  <p
+                    class="text-base font-bold text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-violet-400"
+                  >
+                    {{ currentFund.minimumAmount | copCurrency: false }}
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <p class="dialog-label">Monto a invertir</p>
+                <div class="relative group">
+                  <div class="investment-currency-icon">
+                    <span class="text-slate-500 font-bold text-lg">$</span>
+                  </div>
+                  <input
+                    type="text"
+                    [ngModel]="displayAmount()"
+                    (ngModelChange)="onAmountInput($event)"
+                    class="investment-input w-full bg-slate-800/50 border rounded-2xl text-xl font-bold text-white transition-all duration-300 outline-hidden"
+                    [class.border-red-500]="amountTooLow() || amountTooHigh()"
+                    [class.border-slate-700/50]="!amountTooLow() && !amountTooHigh()"
+                    placeholder="0"
+                  />
+                </div>
+                @if (amountTooLow() || amountTooHigh()) {
+                  <p
+                    class="text-[11px] font-bold text-red-400 mt-2 ml-1 flex items-center gap-1.5 animate-fade-in"
+                  >
+                    <span class="text-sm">⚠️</span>
+                    {{
+                      amountTooHigh()
+                        ? 'El monto supera tu saldo disponible'
+                        : 'El monto es inferior al mínimo requerido'
+                    }}
+                  </p>
+                }
+              </div>
+
+              <div class="mt-4">
+                <p class="dialog-label">Notificar suscripción por</p>
+                <div class="grid grid-cols-2 gap-3">
+                  <button
+                    (click)="selectedMethod.set('email')"
+                    class="dialog-method-btn group"
+                    [class.active]="selectedMethod() === 'email'"
+                  >
+                    <div
+                      class="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 shrink-0"
+                      [class]="
+                        selectedMethod() === 'email'
+                          ? 'bg-indigo-500 text-white'
+                          : 'bg-slate-800 text-slate-400 group-hover:bg-slate-700'
+                      "
+                    >
+                      <span class="text-xl">📧</span>
+                    </div>
+                    <div class="text-left min-w-0">
+                      <p
+                        class="text-sm font-bold transition-colors"
+                        [class]="selectedMethod() === 'email' ? 'text-white' : 'text-slate-400'"
+                      >
+                        Email
+                      </p>
+                      <p class="text-xs opacity-50 truncate">Electrónico</p>
+                    </div>
+                  </button>
+                  <button
+                    (click)="selectedMethod.set('sms')"
+                    class="dialog-method-btn group"
+                    [class.active]="selectedMethod() === 'sms'"
+                  >
+                    <div
+                      class="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 shrink-0"
+                      [class]="
+                        selectedMethod() === 'sms'
+                          ? 'bg-indigo-500 text-white'
+                          : 'bg-slate-800 text-slate-400 group-hover:bg-slate-700'
+                      "
+                    >
+                      <span class="text-xl">📱</span>
+                    </div>
+                    <div class="text-left min-w-0">
+                      <p
+                        class="text-sm font-bold transition-colors"
+                        [class]="selectedMethod() === 'sms' ? 'text-white' : 'text-slate-400'"
+                      >
+                        SMS
+                      </p>
+                      <p class="text-xs opacity-50 truncate">Mensaje texto</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <div class="dialog-divider flex flex-col gap-4 border-t border-slate-800/60">
+                <div class="flex justify-between items-center text-xs font-medium text-slate-500">
+                  <span>Monto Mínimo</span>
+                  <span class="text-slate-400 font-bold">{{
+                    currentFund.minimumAmount | copCurrency: false
+                  }}</span>
+                </div>
+                <div class="flex justify-between items-center text-xs font-medium text-slate-500">
+                  <span>Monto de Inversión</span>
+                  <span class="text-sm font-bold text-slate-100 italic">{{
+                    investmentAmount() | copCurrency: false
+                  }}</span>
+                </div>
+                <div class="flex justify-between items-center text-xs font-medium text-slate-500">
+                  <span>Saldo Actual</span>
+                  <span class="text-slate-400">{{
+                    userService.balance() | copCurrency: false
+                  }}</span>
+                </div>
+                <div class="dialog-divider-inner">
+                  <div class="flex justify-between items-center">
+                    <p class="dialog-label ml-0! text-slate-300! mb-1!">Saldo Final Estimado</p>
+                    <p
+                      class="text-3xl font-black tracking-tight"
+                      [class]="amountTooHigh() ? 'text-red-400' : 'text-emerald-300'"
+                    >
+                      {{ userService.balance() - investmentAmount() | copCurrency: false }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="dialog-footer shrink-0 w-full">
+          <button
+            (click)="onCancelAction()"
+            class="dialog-btn dialog-btn-secondary order-2 sm:order-1"
+          >
+            Cancelar
+          </button>
+          <button
+            (click)="onSubscribeAction()"
+            [disabled]="
+              amountTooLow() || amountTooHigh() || userService.loading() || investmentAmount() <= 0
+            "
+            class="dialog-btn dialog-btn-primary order-1 sm:order-2"
+          >
+            @if (userService.loading()) {
+              <span class="flex items-center justify-center gap-2">
+                <span
+                  class="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"
+                ></span>
+                Procesando
+              </span>
+            } @else {
+              Suscribirme Ahora
+            }
+          </button>
+        </div>
+      } @else if (dialogType() === 'confirm') {
+        <div
+          class="dialog-body flex-1 flex flex-col items-center justify-center text-center relative"
+        >
+          <button
+            (click)="onCancelAction()"
+            class="absolute top-4 right-4 p-2 text-slate-500 hover:text-white hover:bg-white/5 rounded-2xl transition-all duration-300 active:scale-90"
+            aria-label="Cerrar modal"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          <div
+            class="w-16 h-16 sm:w-20 sm:h-20 rounded-full mx-auto mb-6 flex items-center justify-center border-2 animate-scale-in"
+            [class]="
+              type() === 'danger'
+                ? 'bg-red-500/10 border-red-500/20 text-red-400'
+                : 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400'
+            "
+          >
+            <span class="text-3xl sm:text-4xl">{{ icon() }}</span>
+          </div>
+          <h3 class="text-2xl font-bold text-white tracking-tight mb-4">{{ title() }}</h3>
+          <p class="text-slate-400 text-base md:text-lg text-center leading-relaxed">
+            {{ message() }}
+          </p>
+        </div>
+
+        <div class="dialog-footer shrink-0 w-full">
+          <button
+            (click)="onCancelAction()"
+            class="dialog-btn dialog-btn-secondary order-2 sm:order-1"
+          >
+            {{ cancelText() }}
+          </button>
+          <button
+            (click)="onConfirmAction()"
+            class="dialog-btn order-1 sm:order-2"
+            [class]="type() === 'danger' ? 'dialog-btn-danger' : 'dialog-btn-primary'"
+          >
+            {{ confirmText() }}
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+}
