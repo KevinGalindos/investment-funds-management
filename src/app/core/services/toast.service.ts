@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { API_CONFIG } from '../constants/config.constants';
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
@@ -13,7 +13,7 @@ export interface IToastMessage {
 @Injectable({ providedIn: 'root' })
 export class ToastService {
   private readonly _toasts = signal<IToastMessage[]>([]);
-  readonly toasts = computed(() => this._toasts());
+  readonly toasts = this._toasts.asReadonly();
   private nextId = 0;
 
   success(message: string, duration = API_CONFIG.TOAST.SUCCESS_DURATION_MS): void {

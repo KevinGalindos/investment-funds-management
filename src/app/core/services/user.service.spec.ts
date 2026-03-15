@@ -79,6 +79,20 @@ describe('UserService', () => {
     expect(service.balance()).toBe(500000);
   });
 
+  it('should handle loadUser error and show toast', () => {
+    service.loadUser().subscribe({
+      next: () => { throw new Error('should have failed'); },
+      error: () => {
+        expect(toastServiceSpy.error).toHaveBeenCalled();
+        expect(service.loading()).toBe(false);
+      }
+    });
+
+    httpMock
+      .expectOne(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.USER}`)
+      .flush('Server Error', { status: 500, statusText: 'Internal Server Error' });
+  });
+
   describe('subscribeTo', () => {
     beforeEach(() => {
       // Load user first for subscription tests

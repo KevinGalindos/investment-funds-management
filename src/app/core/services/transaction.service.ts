@@ -11,8 +11,8 @@ export class TransactionService {
   private readonly _transactions = signal<ITransaction[]>([]);
   private readonly _loading = signal<boolean>(false);
 
-  readonly transactions = computed(() => this._transactions());
-  readonly loading = computed(() => this._loading());
+  readonly transactions = this._transactions.asReadonly();
+  readonly loading = this._loading.asReadonly();
   readonly totalSubscriptions = computed(
     () => this._transactions().filter((t) => t.type === 'subscribe').length,
   );
@@ -27,7 +27,7 @@ export class TransactionService {
       .get<ITransaction[]>(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.TRANSACTIONS}`)
       .pipe(
         tap((transactions) => {
-          const sorted = transactions.sort(
+          const sorted = [...transactions].sort(
             (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
           );
           this._transactions.set(sorted);

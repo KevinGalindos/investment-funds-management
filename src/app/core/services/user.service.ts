@@ -1,6 +1,6 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap, switchMap, catchError, of } from 'rxjs';
+import { Observable, tap, switchMap, map, catchError, of, throwError } from 'rxjs';
 import { IUser, IFund, ISubscription, ISubscriptionRequest } from '../interfaces';
 import { TransactionService } from './transaction.service';
 import { NotificationService } from './notification.service';
@@ -18,7 +18,8 @@ export class UserService {
   private readonly _user = signal<IUser | null>(null);
   private readonly _loading = signal<boolean>(false);
 
-  readonly user = computed(() => this._user());
+  readonly user = this._user.asReadonly();
+  readonly loading = this._loading.asReadonly();
   readonly balance = computed(() => this._user()?.balance ?? 0);
   readonly subscribedFunds = computed(() => {
     const funds = this._user()?.subscribedFunds ?? [];
@@ -26,7 +27,6 @@ export class UserService {
       (a, b) => new Date(b.subscribedAt).getTime() - new Date(a.subscribedAt).getTime(),
     );
   });
-  readonly loading = computed(() => this._loading());
   readonly userName = computed(() => this._user()?.name ?? 'Usuario');
   readonly subscribedCount = computed(() => this.subscribedFunds().length);
   readonly totalInvested = computed(() =>
@@ -45,14 +45,7 @@ export class UserService {
         this._loading.set(false);
         this.toastService.error('Error al cargar los datos del usuario.');
         console.error('[UserService] Error loading user:', err);
-        return of({
-          id: 1,
-          name: 'Usuario',
-          email: 'usuario@btg.com',
-          phone: '+57 300 123 4567',
-          balance: 500000,
-          subscribedFunds: [],
-        } as IUser);
+        return throwError(() => err);
       }),
     );
   }
@@ -122,7 +115,7 @@ export class UserService {
           );
           this.toastService.success(`✅ Suscripción exitosa al fondo ${fund.name}`);
         }),
-        switchMap(() => of(true)),
+        map(() => true),
         catchError((err) => {
           this._loading.set(false);
           this.toastService.error('Error al procesar la suscripción.');
@@ -177,7 +170,7 @@ export class UserService {
           );
           this.toastService.success(`Cancelación exitosa del fondo ${subscription.fundName}.`);
         }),
-        switchMap(() => of(true)),
+        map(() => true),
         catchError((err) => {
           this._loading.set(false);
           this.toastService.error('Error al cancelar la suscripción.');

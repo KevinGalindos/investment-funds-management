@@ -1,4 +1,4 @@
-import { Injectable, inject, signal, computed } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, catchError, of } from 'rxjs';
 import { IFund } from '../interfaces';
@@ -13,9 +13,9 @@ export class FundService {
   private readonly _loading = signal<boolean>(false);
   private readonly _error = signal<string | null>(null);
 
-  readonly funds = computed(() => this._funds());
-  readonly loading = computed(() => this._loading());
-  readonly error = computed(() => this._error());
+  readonly funds = this._funds.asReadonly();
+  readonly loading = this._loading.asReadonly();
+  readonly error = this._error.asReadonly();
 
   loadFunds(): Observable<IFund[]> {
     this._loading.set(true);
