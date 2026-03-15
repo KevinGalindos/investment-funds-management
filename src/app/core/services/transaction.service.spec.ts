@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TransactionService } from './transaction.service';
@@ -11,7 +12,7 @@ describe('TransactionService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [TransactionService]
+      providers: [TransactionService],
     });
     service = TestBed.inject(TransactionService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -27,20 +28,35 @@ describe('TransactionService', () => {
 
   it('should load and sort transactions by date (descending)', () => {
     const mockTransactions: ITransaction[] = [
-      { id: '1', fundId: 1, fundName: 'A', type: 'subscribe', amount: 100, date: '2026-01-01', notificationMethod: 'email' },
-      { id: '2', fundId: 2, fundName: 'B', type: 'cancel', amount: 200, date: '2026-01-02', notificationMethod: 'sms' }
+      {
+        id: '1',
+        fundId: 1,
+        fundName: 'A',
+        type: 'subscribe',
+        amount: 100,
+        date: '2026-01-01',
+        notificationMethod: 'email',
+      },
+      {
+        id: '2',
+        fundId: 2,
+        fundName: 'B',
+        type: 'cancel',
+        amount: 200,
+        date: '2026-01-02',
+        notificationMethod: 'sms',
+      },
     ];
 
-    service.loadTransactions().subscribe(txs => {
-      expect(txs.length).toBe(2);
-      expect(txs[0].id).toBe('2'); // Most recent first
-    });
+    service.loadTransactions().subscribe();
 
     const req = httpMock.expectOne(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.TRANSACTIONS}`);
     expect(req.request.method).toBe('GET');
     req.flush(mockTransactions);
 
+    // Signal holds the sorted state — most recent first
     expect(service.transactions().length).toBe(2);
+    expect(service.transactions()[0].id).toBe('2');
   });
 
   it('should add a transaction and update local signal', () => {
@@ -51,11 +67,9 @@ describe('TransactionService', () => {
       type: 'subscribe',
       amount: 300,
       date: new Date().toISOString(),
-      notificationMethod: 'email'
+      notificationMethod: 'email',
     };
 
-    // Note: crypto.randomUUID() might need a polyfill in some test environments
-    // or we can just expect the service to call post
     service.addTransaction(3, 'C', 'subscribe', 300, 'email').subscribe();
 
     const req = httpMock.expectOne(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.TRANSACTIONS}`);
@@ -68,9 +82,33 @@ describe('TransactionService', () => {
 
   it('should calculate total subscriptions and cancellations correctly', () => {
     const mockTransactions: ITransaction[] = [
-      { id: '1', fundId: 1, fundName: 'A', type: 'subscribe', amount: 100, date: '2026-01-01', notificationMethod: 'email' },
-      { id: '2', fundId: 1, fundName: 'A', type: 'subscribe', amount: 200, date: '2026-01-02', notificationMethod: 'email' },
-      { id: '3', fundId: 2, fundName: 'B', type: 'cancel', amount: 150, date: '2026-01-03', notificationMethod: 'sms' }
+      {
+        id: '1',
+        fundId: 1,
+        fundName: 'A',
+        type: 'subscribe',
+        amount: 100,
+        date: '2026-01-01',
+        notificationMethod: 'email',
+      },
+      {
+        id: '2',
+        fundId: 1,
+        fundName: 'A',
+        type: 'subscribe',
+        amount: 200,
+        date: '2026-01-02',
+        notificationMethod: 'email',
+      },
+      {
+        id: '3',
+        fundId: 2,
+        fundName: 'B',
+        type: 'cancel',
+        amount: 150,
+        date: '2026-01-03',
+        notificationMethod: 'sms',
+      },
     ];
 
     service.loadTransactions().subscribe();
