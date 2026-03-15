@@ -1,6 +1,6 @@
 # 🚀 Dashbord de Gestión de Inversiones - Investment Funds Management App
 
-Este proyecto es una aplicación web-mobile moderna construida con **Angular 21** para la gestión de fondos de inversión. Permite a los usuarios visualizar fondos disponibles, suscribirse a ellos atendiendo a montos mínimos, y realizar un seguimiento detallado de su historial de transacciones en una interfaz premium y altamente responsiva.
+Este proyecto es una aplicación web-mobile moderna construida con **Angular 21** para la gestión de fondos de inversión. Permite a los usuarios visualizar fondos disponibles, suscribirse a ellos atendiendo a montos mínimos, y realizar un seguimiento detallado de su historial de transacciones en una interfaz intuitiva y altamente responsiva.
 
 ---
 
@@ -28,6 +28,24 @@ Este proyecto es una aplicación web-mobile moderna construida con **Angular 21*
 
 ---
 
+## 🚀 Cómo Probar la Aplicación
+
+Existen dos formas de experimentar y validar el funcionamiento del dashboard:
+
+### 1. Entorno de Producción (Online)
+
+La forma más rápida de ver el proyecto en acción con **persistencia de datos real** (alojada en Render):
+👉 **[Investment Funds Management](https://investment-funds-management.vercel.app/)**
+
+### 2. Entorno Local (Desarrollo)
+
+Si deseas explorar el código, ejecutar las pruebas unitarias o realizar modificaciones:
+
+- Clonar el repositorio y configurar el mock API localmente siguiendo la guía de instalación a continuación.
+- Permite ver el flujo completo de desarrollo y la configuración de Angular 21.
+
+---
+
 ## ⚙️ Instalación y Configuración
 
 Sigue estos pasos para ejecutar el proyecto en tu máquina local:
@@ -35,7 +53,7 @@ Sigue estos pasos para ejecutar el proyecto en tu máquina local:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone <url-del-repositorio>
+git clone https://github.com/KevinGalindos/investment-funds-management
 cd investment-funds-management-app
 ```
 
@@ -67,6 +85,12 @@ En una nueva terminal, inicia el servidor de desarrollo:
 npm start
 ```
 
+o
+
+```bash
+ng serve
+```
+
 _Abre tu navegador en `http://localhost:4200`_
 
 ---
@@ -76,15 +100,8 @@ _Abre tu navegador en `http://localhost:4200`_
 Para ejecutar las pruebas del sistema utilizando Vitest:
 
 ```bash
-npm test
+npm run test
 ```
-
----
-
-## 🔗 Enlace del Proyecto Desplegado
-
-Puedes acceder a la versión en producción del proyecto aquí:
-👉 **[Link del Proyecto Desplegado](AQUÍ_VA_TU_LINK_DE_VERCEL_O_NETLIFY)**
 
 ---
 
